@@ -12,7 +12,7 @@ describe('Login Sauce Demo', () => {
     beforeEach(() => {
         loginPage.fnNavigate();
         let username = 'standard_user';
-        let password = 'secret_sauces';
+        let password = 'secret_sauce';
         loginPage.fnLogin(username, password);
     })
 
