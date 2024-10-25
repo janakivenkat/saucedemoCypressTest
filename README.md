@@ -92,5 +92,14 @@ Upon installation you get the appropriate HTML and screenshot reports in your pr
 Here is a sample passed and a failed report of our test case SauceDemo.spec.cy.js
 
 Passed html report with valid password 
+![PassedHtml](https://github.com/user-attachments/assets/0d6c6894-be51-4092-99bd-a1e51e50274d)
 
 Failed html report with invalid password
+![FailedHtml1](https://github.com/user-attachments/assets/817ed533-4f8b-4bed-91e1-4b470e30512f)
+
+![FailedHtml2](https://github.com/user-attachments/assets/ef1f552f-d3c8-4bcf-999b-826c39118609)
+
+CypressReport
+![PassedCypressReport](https://github.com/user-attachments/assets/4882b7a3-d735-4452-b75f-e42c06fceac7)
+
+
