@@ -80,6 +80,13 @@ npx cypress run
     - productListPage.js        // Objects in the Inventory list page
     - checkoutPage.js           // Objects in the checkout page
 
+  /reports
+    - index.html
+
+  /screenshot
+    ***Note : Appears only on failure
+    - Login Sauce Demo -- Login using valid username and password (failed)
+
   /support
     - commands.js         // Custom Cypress commands
     - index.js            // Global configurations
