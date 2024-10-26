@@ -25,18 +25,14 @@ describe('Login Sauce Demo', () => {
 
     it('Add to cart and complete a purchase', () => {
         //fetch name , price and desc of sauce labs backpack
-        productListPage.getInventoryItemName()
-            .first()
-            .invoke('text')
-            .as('txtSauceLabName');
-        productListPage.getInventoryItemDesc()
-            .first()
-            .invoke('text')
-            .as('txtSauceLabDesc');
-        productListPage.getInventoryItemPrice()
-            .first()
-            .invoke('text')
-            .as('txtSauceLabsPrice');
+        let txtSauceLabName = 'Sauce Labs Backpack';
+        let txtSauceLabDesc, txtSauceLabPrice;
+        productListPage.getInventoryItemName(txtSauceLabName).then(($product) => {
+            // Fetch the product description and price an store in a variable
+            txtSauceLabDesc = productListPage.getInventoryItemDesc($product).text();
+            txtSauceLabPrice = productListPage.getInventoryItemPrice($product).text();
+        });
+
         productListPage.getSauceLabAddToCart().click();
         //verify if added to cart
         productListPage.getSauceLabRemoveCart().should('be.visible');
@@ -50,7 +46,7 @@ describe('Login Sauce Demo', () => {
 
         //verify the item in the cart 
         productListPage.getInventoryItem().should('have.length', 1);
-        productListPage.getInventoryItemName().should('contain', 'Sauce Labs Backpack');
+        productListPage.getInventoryItem().should('contain', txtSauceLabName);
 
         // Proceed to checkout
         productListPage.getBtnCheckout().click();
@@ -68,18 +64,13 @@ describe('Login Sauce Demo', () => {
         checkoutPage.getBtnContinue().click();
         cy.url().should('include', '/checkout-step-two.html');
 
-        // Verify that the summary contains the product name, price and desc from previoulsly saved info
-        cy.get('@txtSauceLabName').then(txtSauceLabName => {
-            productListPage.getInventoryItemName().should('contain', txtSauceLabName);
-        })
-
-        cy.get('@txtSauceLabDesc').then(txtSauceLabDesc => {
-            productListPage.getInventoryItemDesc().should('contain', txtSauceLabDesc);
-        })
-
-        cy.get('@txtSauceLabsPrice').then(txtSauceLabsPrice => {
-            productListPage.getInventoryItemPrice().should('contain', txtSauceLabsPrice);
-        })
+        //verify the checkout has the item displayed with name, price and desc from previoulsly saved info
+        productListPage.getInventoryItem().should('have.length', 1);
+        productListPage.getInventoryItem().should('contain', txtSauceLabName);
+        productListPage.getInventoryItemName(txtSauceLabName).then(($product) => {
+            expect(productListPage.getInventoryItemDesc($product).text()).to.eq(txtSauceLabDesc);
+            expect(productListPage.getInventoryItemPrice($product).text()).to.eq(txtSauceLabPrice);
+        });
 
         // Finish the checkout
         checkoutPage.getBtnFinish().click();
@@ -88,4 +79,4 @@ describe('Login Sauce Demo', () => {
         // Verify order completion message
         checkoutPage.getMsgOrderCompletion().should('contain', 'Thank you for your order!');
     })
-})  
+})

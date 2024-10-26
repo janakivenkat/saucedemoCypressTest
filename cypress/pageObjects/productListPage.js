@@ -8,16 +8,16 @@ export class InventoryListPage {
         return cy.get('[data-test="inventory-item"]');
     }
 
-    getInventoryItemName() {
-        return cy.get('[data-test="inventory-item-name"]');
+    getInventoryItemName(productName) {
+        return cy.get('[data-test="inventory-item"]').filter(`:has(.inventory_item_name:contains("${productName}"))`);
     }
 
-    getInventoryItemPrice() {
-        return cy.get('[data-test="inventory-item-price"]');
+    getInventoryItemDesc(product) {
+        return product.find('[data-test="inventory-item-desc"]');
     }
 
-    getInventoryItemDesc() {
-        return cy.get('[data-test="inventory-item-desc"]');
+    getInventoryItemPrice(product) {
+        return product.find('[data-test="inventory-item-price"]');
     }
 
     getSauceLabAddToCart() {
